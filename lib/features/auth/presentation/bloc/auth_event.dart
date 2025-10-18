@@ -5,11 +5,11 @@ sealed class AuthEvent {}
 
 final class AuthStarted extends AuthEvent {}
 
-final class AuthLoginPresssed extends AuthEvent {
+final class AuthLoginPressed extends AuthEvent {
   final String username;
   final String password;
 
-  AuthLoginPresssed({required this.username, required this.password});
+  AuthLoginPressed({required this.username, required this.password});
 }
 
 final class AuthSignUpPressed extends AuthEvent {

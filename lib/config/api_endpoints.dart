@@ -1,7 +1,7 @@
 class ApiEndpoints {
   // Endpoints
   // Auth
-  static const String _authBase = 'auth/';
+  static const String _authBase = 'auth';
   static const String login = '$_authBase/login';
   static const String signUp = '$_authBase/signup';
 

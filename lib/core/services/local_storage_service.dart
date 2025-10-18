@@ -4,6 +4,7 @@ class LocalStorageService {
   final SharedPreferences _prefs;
 
   static String userKey = 'user_data';
+  static String tokenKey = 'jwt_token';
 
   LocalStorageService(this._prefs);
 

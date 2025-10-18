@@ -6,9 +6,9 @@ class UserSessionModel extends UserSessionEntity {
 
   factory UserSessionModel.fromJson(Map<String, dynamic> json) {
     return UserSessionModel(
-      user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      user: UserModel.fromJson(json['userDtoResponse'] as Map<String, dynamic>),
       token: json['token'] as String,
-      refreshToken: json['refresh_token'] as String,
+      refreshToken: json['refresh_token'] as String? ?? '',
     );
   }
 }

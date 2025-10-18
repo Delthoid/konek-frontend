@@ -1,15 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:konek_frontend/config/api_config.dart';
+import 'package:konek_frontend/core/errors/api_exception.dart';
 import 'package:konek_frontend/core/models/api_response.dart';
-import 'package:konek_frontend/core/services/env_service.dart';
 import 'package:konek_frontend/core/services/logging_service.dart';
 
 class ApiService {
   final Dio _dio;
-  final String _baseUrl = EnvService.baseUrl;
+  final String _baseUrl = ApiConfig.baseUrl;
   final LoggingService _logger = GetIt.I<LoggingService>();
 
-  ApiService() : _dio = Dio(BaseOptions(baseUrl: EnvService.baseUrl));
+  ApiService() : _dio = Dio(BaseOptions(baseUrl: ApiConfig.baseUrl, receiveDataWhenStatusError: true, validateStatus: (status) => status! < 500));
 
   Uri makeUri(String path) {
     return Uri.parse('$_baseUrl$path');
@@ -40,11 +41,17 @@ class ApiService {
         'POST ${makeUri(path)} - Status: ${response.statusCode}',
       );
 
+      if ((response.statusCode ?? 500) >= 400) {
+        final error = response.data['error'] ?? 'Not Found';
+        final errorMessage = response.data['message'] ?? 'The requested resource was not found.';
+        throw ApiException('$error: $errorMessage');
+      }
+
       return Response<ApiResponse<T>>(
         data: ApiResponse.fromJson(response.data, (json) => json as T),
         statusCode: response.statusCode,
         headers: response.headers,
-        requestOptions: RequestOptions(),
+        requestOptions: RequestOptions(receiveDataWhenStatusError: true),
       );
     }).catchError((error) {
       _logger.logError('POST ${makeUri(path)} - Error: $error');

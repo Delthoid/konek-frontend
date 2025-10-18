@@ -398,6 +398,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.1"
+  flutter_secure_storage_macos:
+    dependency: "direct main"
+    description:
+      name: flutter_secure_storage_macos
+      sha256: "75894eb6b402ac7f7f5ee5487d651b87855a338e26eb6993f4b2fce33013a615"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
+  flutter_secure_storage_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_platform_interface
+      sha256: "8ceea1223bee3c6ac1a22dabd8feefc550e4729b3675de4b5900f55afcb435d6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   flutter_test:
     dependency: "direct main"
     description: flutter

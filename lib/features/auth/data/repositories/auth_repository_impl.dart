@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:konek_frontend/core/errors/errors.dart';
 import 'package:konek_frontend/core/services/services.dart';
 import 'package:konek_frontend/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:konek_frontend/features/auth/data/models/user_model.dart';
@@ -10,31 +9,26 @@ import 'package:konek_frontend/features/auth/domain/repositories/auth_repository
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource _remoteDatasource;
-  final SecureStorageService _secureStorageService;
   final LocalStorageService _localStorageService;
 
   AuthRepositoryImpl({
     required AuthRemoteDatasource remoteDatasource,
-    required SecureStorageService secureStorageService,
     required LocalStorageService localStorageService,
   })  : _remoteDatasource = remoteDatasource,
-        _secureStorageService = secureStorageService,
         _localStorageService = localStorageService;
 
   @override
   Future<UserSessionEntity> login({required String userName, required String password}) async {
     try {
       final userSessionModel = await _remoteDatasource.login(userName: userName, password: password);
-      await _secureStorageService.saveToken(userSessionModel.token);
-
-      // Save the user object to local storage
+      await _localStorageService.saveKeyValue(LocalStorageService.tokenKey, userSessionModel.token);
       await _localStorageService.saveKeyValue(
         LocalStorageService.userKey,
         jsonEncode(
           UserModel(
-            id: userSessionModel.user.id,
+            userId: userSessionModel.user.userId,
             email: userSessionModel.user.email,
-            name: userSessionModel.user.name,
+            userName: userSessionModel.user.userName,
             createdAt: userSessionModel.user.createdAt,
           ).toJson(),
         ),
@@ -42,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return userSessionModel;
     } catch (e) {
-      throw ApiException('AuthRepository - login: $e');
+      rethrow;
     }
   }
 
@@ -50,10 +44,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> logout() async {
     try {
       await _remoteDatasource.logout();
-      await _secureStorageService.deleteToken();
       await _localStorageService.deleteKey(LocalStorageService.userKey);
+      await _localStorageService.deleteKey(LocalStorageService.tokenKey);
     } catch (e) {
-      throw ApiException('AuthRepository - logout: $e');
+      rethrow;
     }
   }
 
@@ -74,7 +68,25 @@ class AuthRepositoryImpl implements AuthRepository {
       // Note: UserModel might not have token, if needed add to model
       return userModel;
     } catch (e) {
-      throw ApiException('AuthRepository - signUp: $e');
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<UserSessionEntity?> getStoredSession() async {
+    final token = _localStorageService.getKeyValue(LocalStorageService.tokenKey);
+    final userJson = _localStorageService.getKeyValue(LocalStorageService.userKey);
+
+    if (token != null && userJson != null) {
+      final userMap = jsonDecode(userJson) as Map<String, dynamic>;
+      final userModel = UserModel.fromJson(userMap);
+      return UserSessionEntity(
+        token: token,
+        user: userModel,
+        refreshToken: '',
+      );
+    } else {
+      return null;
     }
   }
 }
