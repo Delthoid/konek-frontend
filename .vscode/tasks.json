@@ -1,0 +1,56 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Create Feature",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/scripts/create_feature.sh"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "none",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    },
+    {
+      "label": "Create Feature (with name)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/scripts/create_feature.sh",
+        "${input:featureName}"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "none",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "featureName",
+      "type": "promptString",
+      "description": "Enter feature name (lowercase, use underscores for spaces)",
+      "default": "new_feature"
+    }
+  ]
+}
