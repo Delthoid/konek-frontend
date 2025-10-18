@@ -44,15 +44,32 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> logout() async {
+    _loggingService.logInfo('AuthRemoteDatasource - logout called');
   }
 
   @override
-  Future<UserModel> signUp({required String email, required String userName, required String password, String? avatarUrl}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<UserModel> signUp({required String email, required String userName, required String password, String? avatarUrl}) async {
+    try {
+      final response = await _apiService.post(
+        ApiEndpoints.signUp,
+        data: {
+          'email': email,
+          'userName': userName,
+          'password': password,
+          'avatarUrl': avatarUrl ?? '',
+        }
+      );
+
+      if (response.statusCode == 201) {
+        return UserModel.fromJson(response.data?.data);
+      } else {
+        throw ApiException('Sign up failed with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      _loggingService.logError('AuthRemoteDatasource - signUp: $e');
+      rethrow;
+    }
   }
 
 }

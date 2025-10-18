@@ -18,6 +18,7 @@ class _AuthLoginFormState extends State<AuthLoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginSuccess) {
@@ -25,41 +26,62 @@ class _AuthLoginFormState extends State<AuthLoginForm> {
         }
       },
       builder: (context, state) {
-        return Form(
-          key: _formKey,
-          child: Column(
-            children: [
+        return Container(
+          color: theme.colorScheme.surface,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                if (state is AuthFailure) ...[
+                  Text((state).errorMessage, style: const TextStyle(color: Colors.red)),
+                  const SizedBox(height: 16),
+                ],
 
-              if (state is AuthFailure) ...[
-                Text((state).errorMessage, style: const TextStyle(color: Colors.red)),
-                const SizedBox(height: 16),
+                if (state is AuthSignupSuccess) ...[
+                  Text('Account created successfully. Please log in.', style: TextStyle(color: theme.colorScheme.primary)),
+                  const SizedBox(height: 16),
+                ],
+          
+                TextFormField(
+                  controller: _userNameController,
+                  decoration: const InputDecoration(labelText: 'Username'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your username';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+                FilledButton(
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      BlocProvider.of<AuthBloc>(context).add(
+                        AuthLoginPressed(
+                          username: _userNameController.text,
+                          password: _passwordController.text,
+                        ),
+                      );
+                    }
+                  },
+                  child: Text('Login'),
+                ),
+          
+                TextButton(onPressed: () {
+                  context.pushNamed(RouteNames.signUp);
+                }, child: Text('Create Account'))
               ],
-
-              TextFormField(
-                controller: _userNameController,
-                decoration: const InputDecoration(labelText: 'Username'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              FilledButton(onPressed: () {
-                BlocProvider.of<AuthBloc>(context).add(AuthLoginPressed(username: _userNameController.text, password: _passwordController.text));
-              }, child: Text('Login'))
-            ],
+            ),
           ),
         );
       },
