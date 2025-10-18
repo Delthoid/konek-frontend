@@ -26,10 +26,50 @@ Konek is an open-source, self-hostable messaging application frontend built with
   │   │       └── widgets/
   │   └── [other features...]
   ├── core/
-  │   ├── constants/
-  │   ├── errors/
-  │   ├── extensions/
-  │   └── utils/
+  │   ├── services/                    # Shared services used across features
+  │   │   ├── api_service.dart        # Dio HTTP client wrapper
+  │   │   ├── local_storage_service.dart  # SQLite wrapper
+  │   │   ├── websocket_service.dart   # WebSocket connection manager
+  │   │   ├── logger_service.dart      # Logging utility
+  │   │   └── notification_service.dart # OneSignal push notifications
+  │   ├── errors/                      # Error handling
+  │   │   ├── exceptions.dart          # Custom exception classes
+  │   │   ├── failures.dart            # Failure classes (for Either/Result pattern)
+  │   │   └── error_handler.dart       # Error handling utilities
+  │   ├── constants/                   # App-wide constants
+  │   │   ├── app_constants.dart       # General app constants
+  │   │   ├── api_constants.dart       # API endpoints and timeouts
+  │   │   ├── strings.dart             # String constants (messages, labels)
+  │   │   └── colors.dart              # Color palette
+  │   ├── extensions/                  # Dart extension methods
+  │   │   ├── string_extensions.dart   # String helper methods
+  │   │   ├── context_extensions.dart  # BuildContext helpers
+  │   │   ├── datetime_extensions.dart # DateTime formatting
+  │   │   └── list_extensions.dart     # List/Iterable helpers
+  │   ├── utils/                       # Utility functions and helpers
+  │   │   ├── validators.dart          # Input validation (email, password, etc.)
+  │   │   ├── formatters.dart          # Data formatting utilities
+  │   │   ├── date_time_utils.dart     # Date/time helpers
+  │   │   └── permission_utils.dart    # Permission handling helpers
+  │   ├── config/                      # App configuration
+  │   │   ├── environment.dart         # Environment variables (dev/prod)
+  │   │   ├── app_config.dart          # Global app configuration
+  │   │   └── api_config.dart          # API base URLs and endpoints
+  │   ├── di/                          # Dependency Injection
+  │   │   └── service_locator.dart     # GetIt service locator setup
+  │   ├── theme/                       # Theme and styling
+  │   │   ├── app_theme.dart           # Material theme
+  │   │   ├── app_colors.dart          # Color definitions
+  │   │   └── app_text_styles.dart     # Text styles
+  │   ├── widgets/                     # Shared/Common widgets
+  │   │   ├── loading_widget.dart      # Loading indicator
+  │   │   ├── error_widget.dart        # Error display widget
+  │   │   ├── custom_button.dart       # Reusable button
+  │   │   └── custom_appbar.dart       # Reusable AppBar
+  │   └── models/                      # Shared data models
+  │       ├── api_response.dart        # Generic API response wrapper
+  │       ├── pagination_model.dart    # Pagination data
+  │       └── user_model.dart          # Shared user model (if needed across features)
   └── main.dart
   ```
 
