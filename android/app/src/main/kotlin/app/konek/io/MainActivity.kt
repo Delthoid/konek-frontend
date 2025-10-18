@@ -1,4 +1,4 @@
-package com.example.konek_frontend
+package app.konek.io
 
 import io.flutter.embedding.android.FlutterActivity
 
