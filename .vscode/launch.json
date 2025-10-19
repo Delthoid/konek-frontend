@@ -10,7 +10,9 @@
             "type": "dart",
             "args": [
                 "--dart-define=BASE_URL",
-                "http://localhost:8080/"
+                "http://localhost:8080/",
+                "--web-port",
+                "8000"
             ]
         },
         {
