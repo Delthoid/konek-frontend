@@ -41,7 +41,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLoginPressed>((event, emit) async {
       emit(AuthLoading());
       try {
-        await Future.delayed(const Duration(seconds: 5));
         final userSession = await _loginUsecase.call(
           userName: event.username,
           password: event.password,
@@ -62,7 +61,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
 
       try {
-        await Future.delayed(const Duration(seconds: 5));
         final userEntity =  await _signupUsecase.call(
           email:  event.email,
           userName: event.username,

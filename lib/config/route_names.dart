@@ -7,4 +7,8 @@ class RouteNames {
   // Auth
   static const String login = '$auth/login';
   static const String signUp = '$auth/sign-up';
+
+  // Servers
+  static const String server = '$home/server/:serverId';
+  static const String channel = '$server/channel/:channelId';
 }
