@@ -9,6 +9,13 @@ import 'package:konek_frontend/features/auth/domain/usecases/get_stored_session_
 import 'package:konek_frontend/features/auth/domain/usecases/login_usecase.dart';
 import 'package:konek_frontend/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:konek_frontend/features/auth/domain/usecases/signup_usecase.dart';
+import 'package:konek_frontend/features/servers/data/datasources/servers_remote_data_source.dart';
+import 'package:konek_frontend/features/servers/data/repositories/server_repository_impl.dart';
+import 'package:konek_frontend/features/servers/domain/repositories/server_repository.dart';
+import 'package:konek_frontend/features/servers/domain/usecases/create_server_usecase.dart';
+import 'package:konek_frontend/features/servers/domain/usecases/delete_server_usecase.dart';
+import 'package:konek_frontend/features/servers/domain/usecases/get_servers_usecase.dart';
+import 'package:konek_frontend/features/servers/domain/usecases/update_server_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final di = GetIt.instance;
@@ -39,4 +46,19 @@ Future<void> setupDI() async {
   di.registerFactory<GetStoredSessionUsecase>(() => GetStoredSessionUsecase(di<AuthRepository>()));
   di.registerFactory<LogoutUsecase>(() => LogoutUsecase(di<AuthRepository>()));
   di.registerFactory<SignupUsecase>(() => SignupUsecase(di<AuthRepository>()));
+
+  // Servers
+  di.registerFactory<ServersRemoteDataSource>(
+    () => ServersRemoteDataSourceImpl(apiService: di<ApiService>(), loggingService: di<LoggingService>()),
+  );
+  di.registerFactory<ServerRepository>(
+    () => ServerRepositoryImpl(
+      remoteDatasource: di<ServersRemoteDataSource>(),
+    )
+  );
+
+  di.registerFactory<CreateServerUsecase>(() => CreateServerUsecase(di<ServerRepository>()));
+  di.registerFactory<DeleteServerUsecase>(() => DeleteServerUsecase(di<ServerRepository>()));
+  di.registerFactory<UpdateServerUsecase>(() => UpdateServerUsecase(di<ServerRepository>()));
+  di.registerFactory<GetServersUsecase>(() => GetServersUsecase(di<ServerRepository>()));
 }

@@ -17,7 +17,7 @@ class AppTheme {
           TargetPlatform.windows: ZoomPageTransitionsBuilder(),
         },
       ),
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink, brightness: Brightness.light),
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.light),
     );
   }
 
@@ -32,7 +32,7 @@ class AppTheme {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
           TargetPlatform.linux: ZoomPageTransitionsBuilder(),
-          TargetPlatform.macOS: ZoomPageTransitionsBuilder(),
+          TargetPlatform.macOS: FadeForwardsPageTransitionsBuilder(),
           TargetPlatform.windows: ZoomPageTransitionsBuilder(),
         },
       ),

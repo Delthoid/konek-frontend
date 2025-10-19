@@ -57,6 +57,7 @@ dependencies:
   shared_preferences: ^2.5.3
   flutter_secure_storage_macos: ^4.0.0
   google_fonts: ^6.3.2
+  bloc_concurrency: ^0.3.0
 
 dev_dependencies:
 

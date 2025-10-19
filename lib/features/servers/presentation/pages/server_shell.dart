@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konek_frontend/config/route_names.dart';
 
@@ -23,6 +22,7 @@ class _ServerShellState extends State<ServerShell> {
         children: [
           // Server info and channel sidebar
           Container(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18.0),
             ),
