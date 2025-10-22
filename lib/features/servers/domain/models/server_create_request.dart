@@ -6,8 +6,8 @@ class ServerCreateRequest extends ServerEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'description': description,
+      'name': name.trim(),
+      'description': description.trim().isEmpty ? null : description,
       'iconUrl': iconUrl,
     };
   }

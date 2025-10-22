@@ -58,6 +58,8 @@ dependencies:
   flutter_secure_storage_macos: ^4.0.0
   google_fonts: ^6.3.2
   bloc_concurrency: ^0.3.0
+  flutter_spinkit: ^5.2.2
+  huge_icons_flutter: ^0.0.2
 
 dev_dependencies:
 

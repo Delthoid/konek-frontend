@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konek_frontend/config/route_names.dart';
+import 'package:konek_frontend/core/widgets/dialog/custom_alert_dialog.dart';
 import 'package:konek_frontend/features/servers/domain/entities/server_entity.dart';
 import 'package:konek_frontend/features/servers/presentation/bloc/servers_bloc.dart';
+import 'package:konek_frontend/features/servers/presentation/widgets/server_create_form.dart';
 import 'package:konek_frontend/features/servers/presentation/widgets/server_icon.dart';
 
 class ServerSidebar extends StatefulWidget {
@@ -20,10 +22,10 @@ class _ServerSidebarState extends State<ServerSidebar> {
     return BlocConsumer<ServersBloc, ServersState>(
       listener: (context, state) {
         if (state is ServersLoadFailure) {
-          showDialog(context: context, builder: (context) => AlertDialog(
-            title: Text('Error'),
-            content: Text(state.message),
-          ));
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(title: Text('Error'), content: Text(state.message)),
+          );
         }
       },
       builder: (context, state) {
@@ -58,18 +60,16 @@ class _ServerSidebarState extends State<ServerSidebar> {
                   ),
                   const Divider(),
 
-                  if (state is ServersLoadSuccess) ...[
-                    ...List.generate(state.servers.length, (index) {
-                      final server = state.servers.elementAt(index);
-                      return ServerIcon(
-                        server: server,
-                        onTap: () {
-                          context.pushReplacementNamed(RouteNames.server, pathParameters: {'serverId': server.id});
-                        },
-                      );
-                    }),
-                    const Divider(),
-                  ],
+                  ...List.generate(state.serversList.length, (index) {
+                    final server = state.serversList.elementAt(index);
+                    return ServerIcon(
+                      server: server,
+                      onTap: () {
+                        context.pushReplacementNamed(RouteNames.server, pathParameters: {'serverId': server.id});
+                      },
+                    );
+                  }),
+                  const Divider(),
 
                   ServerIcon(
                     tooltip: 'Add Server',
@@ -82,7 +82,18 @@ class _ServerSidebarState extends State<ServerSidebar> {
                       createdAt: DateTime.now(),
                       updatedAt: DateTime.now(),
                     ),
-                    onTap: () {},
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) => CustomAlertDialog(
+                          title: 'Add Server',
+                          width: 400,
+                          showCloseButton: true,
+                          content: ServerCreateForm(),
+                        ),
+                        barrierDismissible: false,
+                      );
+                    },
                   ),
                 ],
               ),

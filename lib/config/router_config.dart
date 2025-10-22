@@ -80,7 +80,13 @@ GoRouter get testRouter => kDebugMode ? AppRouterConfig.router : _releaseRouter;
                     builder: (context, state) {
                       final channelId = state.pathParameters['channelId'] ?? '';
                       GetIt.I<LoggingService>().logInfo('Navigating to channel with ID: $channelId');
-                      return Text('Channel ID: $channelId');
+                      return FilledButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          splashFactory: InkSparkle.splashFactory,
+                        ),
+                        child: Text('Channel ID: $channelId'),
+                      );
                     },
                   ),
                 ],

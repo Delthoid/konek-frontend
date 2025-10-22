@@ -46,7 +46,7 @@ class ServersBloc extends Bloc<ServersEvent, ServersState> {
         emit(ServersLoadSuccess(newServers));
       } catch (e) {
         if (e is ApiException) {
-          emit(ServersLoadFailure('There was problem on creating server. ${e.message}', servers: state.serversList));
+          emit(ServersLoadFailure(e.message, servers: state.serversList));
           return;
         }
 

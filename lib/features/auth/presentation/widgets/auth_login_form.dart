@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konek_frontend/config/route_names.dart';
 import 'package:konek_frontend/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:konek_frontend/features/servers/presentation/bloc/servers_bloc.dart';
 
 class AuthLoginForm extends StatefulWidget {
   const AuthLoginForm({super.key});
@@ -23,6 +24,7 @@ class _AuthLoginFormState extends State<AuthLoginForm> {
       listener: (context, state) {
         if (state is AuthLoginSuccess) {
           context.pushReplacementNamed(RouteNames.home);
+          BlocProvider.of<ServersBloc>(context).add(ServersStarted());
         }
       },
       builder: (context, state) {

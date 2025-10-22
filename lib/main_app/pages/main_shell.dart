@@ -45,18 +45,17 @@ class _MainShellState extends State<MainShell> {
             const SizedBox(width: 8),
             ServerSidebar(),
             const SizedBox(width: 8),
-            Expanded(
+            Expanded( 
               flex: 2,
               child: Container(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 margin: const EdgeInsets.symmetric(vertical: 8),
-                padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surfaceContainerLowest,
-                  borderRadius: BorderRadius.circular(24.0),
+                  borderRadius: BorderRadius.circular(12.0),
                   boxShadow: [
                     BoxShadow(
-                      color: theme.colorScheme.shadow.withOpacity(0.1),
+                      color: theme.colorScheme.shadow.withValues(alpha: 0.1),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
