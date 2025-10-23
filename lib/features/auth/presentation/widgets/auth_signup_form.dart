@@ -33,9 +33,11 @@ class _AuthSignupFormState extends State<AuthSignupForm> {
             key: _formKey,
             child: Column(
               children: [
-
                 if (state is AuthFailure) ...[
-                  Text((state).errorMessage, style: const TextStyle(color: Colors.red)),
+                  Text(
+                    (state).errorMessage,
+                    style: const TextStyle(color: Colors.red),
+                  ),
                   const SizedBox(height: 16),
                 ],
 
@@ -71,7 +73,9 @@ class _AuthSignupFormState extends State<AuthSignupForm> {
                 ),
                 TextFormField(
                   controller: _confirmPasswordController,
-                  decoration: const InputDecoration(labelText: 'Confirm Password'),
+                  decoration: const InputDecoration(
+                    labelText: 'Confirm Password',
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your password';
@@ -97,9 +101,12 @@ class _AuthSignupFormState extends State<AuthSignupForm> {
                   },
                   child: Text('Sign Up'),
                 ),
-                TextButton(onPressed: () {
-                  context.pushNamed(RouteNames.login);
-                }, child: Text('Already have an account? Login'))
+                TextButton(
+                  onPressed: () {
+                    context.pushNamed(RouteNames.login);
+                  },
+                  child: Text('Already have an account? Login'),
+                ),
               ],
             ),
           ),

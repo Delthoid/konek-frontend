@@ -16,7 +16,8 @@ final class AuthLoadSuccess extends AuthState {
 final class AuthLoginSuccess extends AuthLoadSuccess {
   final UserSessionEntity userSession;
 
-  AuthLoginSuccess({required this.userSession}) : super(userSessionEntity: userSession);
+  AuthLoginSuccess({required this.userSession})
+    : super(userSessionEntity: userSession);
 }
 
 final class AuthSignupSuccess extends AuthState {

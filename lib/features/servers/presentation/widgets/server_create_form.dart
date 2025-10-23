@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:konek_frontend/config/sizing_config.dart';
 import 'package:konek_frontend/core/widgets/inputs/custom_field_button.dart';
-import 'package:konek_frontend/core/widgets/widgets.dart' show LabeledTextAreaField, LabeledTextFormField;
+import 'package:konek_frontend/core/widgets/widgets.dart'
+    show LabeledTextAreaField, LabeledTextFormField;
 import 'package:konek_frontend/features/servers/domain/models/server_create_request.dart';
 import 'package:konek_frontend/features/servers/presentation/bloc/servers_bloc.dart';
 
@@ -53,18 +54,28 @@ class _ServerCreateFormState extends State<ServerCreateForm> {
                       : null,
                 ),
               ),
-              LabeledTextAreaField(label: 'Description', controller: _descriptionController),
+              LabeledTextAreaField(
+                label: 'Description',
+                controller: _descriptionController,
+              ),
               SizedBox(
                 width: double.infinity,
-                child: CustomFieldButton(text: 'Create', isLoading: state is ServerCreateInProgress, onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
+                child: CustomFieldButton(
+                  text: 'Create',
+                  isLoading: state is ServerCreateInProgress,
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
                       BlocProvider.of<ServersBloc>(context).add(
                         ServerCreated(
-                          ServerCreateRequest(name: _nameController.text, description: _descriptionController.text),
+                          ServerCreateRequest(
+                            name: _nameController.text,
+                            description: _descriptionController.text,
+                          ),
                         ),
                       );
                     }
-                }),
+                  },
+                ),
               ),
             ],
           ),

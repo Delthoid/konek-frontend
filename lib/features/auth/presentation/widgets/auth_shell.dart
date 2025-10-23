@@ -13,9 +13,7 @@ class _AuthShellState extends State<AuthShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Authentication'),
-      ),
+      appBar: AppBar(title: const Text('Authentication')),
       body: widget.child,
     );
   }

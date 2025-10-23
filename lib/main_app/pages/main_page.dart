@@ -17,16 +17,19 @@ class _MainPageState extends State<MainPage> {
       child: Wrap(
         children: [
           ...AlertDialogStatusType.values.map((status) {
-            return FilledButton(onPressed: () {
-              CustomStatusAlertDialog.show(
+            return FilledButton(
+              onPressed: () {
+                CustomStatusAlertDialog.show(
                   context: context,
                   type: status,
                   title: 'Test title',
                   description: 'The quick brown fox jump over the lazy dog',
                   showCloseIcon: false,
                 );
-            }, child: Text(status.name));
-          }).toList()
+              },
+              child: Text(status.name),
+            );
+          }).toList(),
         ],
       ),
     );

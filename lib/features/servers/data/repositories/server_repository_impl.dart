@@ -1,4 +1,3 @@
-
 import 'package:konek_frontend/features/servers/data/datasources/servers_remote_data_source.dart';
 import 'package:konek_frontend/features/servers/domain/models/server_create_request.dart';
 import 'package:konek_frontend/features/servers/domain/models/server_update_request.dart';
@@ -10,7 +9,8 @@ class ServerRepositoryImpl implements ServerRepository {
 
   //TODO: Save the servers in sqlflite
 
-  ServerRepositoryImpl({required ServersRemoteDataSource remoteDatasource}) : _remoteDataSource = remoteDatasource;
+  ServerRepositoryImpl({required ServersRemoteDataSource remoteDatasource})
+    : _remoteDataSource = remoteDatasource;
 
   @override
   Future<ServerEntity> createServer(ServerCreateRequest request) async {

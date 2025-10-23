@@ -19,12 +19,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
       key: const Key('app_bloc_providers'),
       providers: [
         BlocProvider<AuthBloc>(create: (_) => AuthBloc()..add(AuthStarted())),
-        BlocProvider<ServersBloc>(create: (_) => ServersBloc()..add(ServersStarted())),
+        BlocProvider<ServersBloc>(
+          create: (_) => ServersBloc()..add(ServersStarted()),
+        ),
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',

@@ -28,7 +28,9 @@ class _ServerShellState extends State<ServerShell> {
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceBright,
-              border: Border(right: BorderSide(color: theme.colorScheme.outlineVariant)),
+              border: Border(
+                right: BorderSide(color: theme.colorScheme.outlineVariant),
+              ),
             ),
             constraints: BoxConstraints(maxWidth: 300, minWidth: 250),
             child: Align(
@@ -46,7 +48,10 @@ class _ServerShellState extends State<ServerShell> {
                           bottomRight: Radius.circular(12.0),
                         ),
                         gradient: LinearGradient(
-                          colors: [const Color.fromARGB(255, 243, 249, 255), const Color.fromARGB(255, 218, 238, 255)],
+                          colors: [
+                            const Color.fromARGB(255, 243, 249, 255),
+                            const Color.fromARGB(255, 218, 238, 255),
+                          ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
@@ -59,7 +64,9 @@ class _ServerShellState extends State<ServerShell> {
                           children: [
                             Text(
                               widget.serverId.toString(),
-                              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -67,7 +74,7 @@ class _ServerShellState extends State<ServerShell> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: const Divider(thickness: 0.5,),
+                      child: const Divider(thickness: 0.5),
                     ),
 
                     Row(
@@ -75,7 +82,11 @@ class _ServerShellState extends State<ServerShell> {
                       children: [
                         Text('Text Channels'),
                         // IconButton.filledTonal(onPressed: () {}, icon: HugeIcon(HugeIcons.add, size: 18)),
-                        FilledButton.tonalIcon(onPressed: () {}, label: Text('New'), icon: HugeIcon(HugeIcons.add, size: 18,),)
+                        FilledButton.tonalIcon(
+                          onPressed: () {},
+                          label: Text('New'),
+                          icon: HugeIcon(HugeIcons.add, size: 18),
+                        ),
                       ],
                     ).withPaddingSymmetrical(
                       horizontal: SizingConfig.paddingMedium,
@@ -89,7 +100,7 @@ class _ServerShellState extends State<ServerShell> {
                           child: ListTile(
                             title: Text('Channel $index'),
                             dense: true,
-                            leading: Icon(Icons.numbers, size: 18,),
+                            leading: Icon(Icons.numbers, size: 18),
                             minLeadingWidth: 0,
                             onTap: () {
                               context.goNamed(
@@ -113,7 +124,10 @@ class _ServerShellState extends State<ServerShell> {
             ),
           ),
           const SizedBox(width: 12),
-          Expanded(flex: 2, child: widget.child ?? Center(child: Text('No Channel Selected'))),
+          Expanded(
+            flex: 2,
+            child: widget.child ?? Center(child: Text('No Channel Selected')),
+          ),
         ],
       ),
     );

@@ -56,15 +56,29 @@ class _ServerIconState extends State<ServerIcon> {
           message: widget.tooltip ?? widget.server.name,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            constraints: BoxConstraints(minWidth: 50, minHeight: 50, maxWidth: 50, maxHeight: 50),
+            constraints: BoxConstraints(
+              minWidth: 50,
+              minHeight: 50,
+              maxWidth: 50,
+              maxHeight: 50,
+            ),
             margin: const EdgeInsets.symmetric(vertical: 4.0),
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(_hovering || widget.isSelected ? 50.0 : 12.0),
-              border: _hovering || widget.isSelected ? Border.all(color: theme.colorScheme.primary, width: 2.0) : null,
+              borderRadius: BorderRadius.circular(
+                _hovering || widget.isSelected ? 50.0 : 12.0,
+              ),
+              border: _hovering || widget.isSelected
+                  ? Border.all(color: theme.colorScheme.primary, width: 2.0)
+                  : null,
             ),
             child: Center(
-              child: widget.icon ?? Text(_buildInitial(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              child:
+                  widget.icon ??
+                  Text(
+                    _buildInitial(),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
             ),
           ),
         ),

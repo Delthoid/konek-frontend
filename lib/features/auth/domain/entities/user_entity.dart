@@ -16,7 +16,14 @@ class UserEntity extends Equatable {
     required this.createdAt,
     this.updatedAt,
   });
-  
+
   @override
-  List<Object?> get props => [userId, email, userName, avatarUrl, createdAt, updatedAt];
+  List<Object?> get props => [
+    userId,
+    email,
+    userName,
+    avatarUrl,
+    createdAt,
+    updatedAt,
+  ];
 }

@@ -32,7 +32,10 @@ class CustomAlertDialog extends StatelessWidget {
         if (showCloseButton || title == null) ...[
           Align(
             alignment: AlignmentGeometry.centerRight,
-            child: IconButton.filledTonal(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close)),
+            child: IconButton.filledTonal(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.close),
+            ),
           ),
         ],
         Center(child: _buildTitle()),
@@ -46,10 +49,16 @@ class CustomAlertDialog extends StatelessWidget {
 
     return AlertDialog(
       title: _buildTitleHeader(context),
-      titleTextStyle: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+      titleTextStyle: theme.textTheme.titleLarge?.copyWith(
+        fontWeight: FontWeight.bold,
+      ),
       titlePadding: const EdgeInsets.all(SizingConfig.paddingMedium),
       backgroundColor: theme.colorScheme.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(SizingConfig.borderRadiusXLarge)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(
+          SizingConfig.borderRadiusXLarge,
+        ),
+      ),
       content: ConstrainedBox(
         constraints: BoxConstraints(minWidth: width, maxWidth: maxWidth),
         child: content,

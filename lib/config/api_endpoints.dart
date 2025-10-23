@@ -11,4 +11,4 @@ class ApiEndpoints {
   static const String updateServer = '$_serverBase/update';
   static const String deleteServer = '$_serverBase/delete';
   static const String getServers = _serverBase;
-} 
+}

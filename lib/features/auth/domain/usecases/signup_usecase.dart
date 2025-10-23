@@ -5,7 +5,7 @@ class SignupUsecase {
   final AuthRepository _authRepository;
 
   SignupUsecase(this._authRepository);
-  
+
   Future<UserEntity> call({
     required String email,
     required String userName,

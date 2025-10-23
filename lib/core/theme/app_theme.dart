@@ -19,21 +19,22 @@ class AppTheme {
           TargetPlatform.windows: ZoomPageTransitionsBuilder(),
         },
       ),
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink, brightness: Brightness.light),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.pink,
+        brightness: Brightness.light,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         isDense: true,
         // fillColor: Colors.grey[100],
         visualDensity: VisualDensity.compact,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(SizingConfig.borderRadiusMedium)
+          borderRadius: BorderRadius.circular(SizingConfig.borderRadiusMedium),
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
-        style: ButtonStyle(
-          visualDensity: VisualDensity.compact,
-        )
-      )
+        style: ButtonStyle(visualDensity: VisualDensity.compact),
+      ),
     );
   }
 
@@ -52,7 +53,10 @@ class AppTheme {
           TargetPlatform.windows: ZoomPageTransitionsBuilder(),
         },
       ),
-      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0A84FF), brightness: Brightness.dark),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: const Color(0xFF0A84FF),
+        brightness: Brightness.dark,
+      ),
     );
   }
 }

@@ -35,15 +35,21 @@ class _AuthLoginFormState extends State<AuthLoginForm> {
             child: Column(
               children: [
                 if (state is AuthFailure) ...[
-                  Text((state).errorMessage, style: const TextStyle(color: Colors.red)),
+                  Text(
+                    (state).errorMessage,
+                    style: const TextStyle(color: Colors.red),
+                  ),
                   const SizedBox(height: 16),
                 ],
 
                 if (state is AuthSignupSuccess) ...[
-                  Text('Account created successfully. Please log in.', style: TextStyle(color: theme.colorScheme.primary)),
+                  Text(
+                    'Account created successfully. Please log in.',
+                    style: TextStyle(color: theme.colorScheme.primary),
+                  ),
                   const SizedBox(height: 16),
                 ],
-          
+
                 TextFormField(
                   controller: _userNameController,
                   decoration: const InputDecoration(labelText: 'Username'),
@@ -78,10 +84,13 @@ class _AuthLoginFormState extends State<AuthLoginForm> {
                   },
                   child: Text('Login'),
                 ),
-          
-                TextButton(onPressed: () {
-                  context.pushNamed(RouteNames.signUp);
-                }, child: Text('Create Account'))
+
+                TextButton(
+                  onPressed: () {
+                    context.pushNamed(RouteNames.signUp);
+                  },
+                  child: Text('Create Account'),
+                ),
               ],
             ),
           ),

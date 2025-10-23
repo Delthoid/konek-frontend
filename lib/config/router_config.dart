@@ -16,8 +16,9 @@ import 'package:konek_frontend/main_app/pages/main_shell.dart';
 class AppRouterConfig {
   final GoRouter _releaseRouter = AppRouterConfig.router;
 
-/// The route configuration.
-GoRouter get testRouter => kDebugMode ? AppRouterConfig.router : _releaseRouter;
+  /// The route configuration.
+  GoRouter get testRouter =>
+      kDebugMode ? AppRouterConfig.router : _releaseRouter;
 
   static GoRouter router = GoRouter(
     initialLocation: RouteNames.home,
@@ -70,7 +71,9 @@ GoRouter get testRouter => kDebugMode ? AppRouterConfig.router : _releaseRouter;
                     name: RouteNames.server,
                     builder: (context, state) {
                       final serverId = state.pathParameters['serverId'] ?? '';
-                      GetIt.I<LoggingService>().logInfo('Navigating to server with ID: $serverId');
+                      GetIt.I<LoggingService>().logInfo(
+                        'Navigating to server with ID: $serverId',
+                      );
                       return Text('Server ID: $serverId');
                     },
                   ),
@@ -79,7 +82,9 @@ GoRouter get testRouter => kDebugMode ? AppRouterConfig.router : _releaseRouter;
                     name: RouteNames.channel,
                     builder: (context, state) {
                       final channelId = state.pathParameters['channelId'] ?? '';
-                      GetIt.I<LoggingService>().logInfo('Navigating to channel with ID: $channelId');
+                      GetIt.I<LoggingService>().logInfo(
+                        'Navigating to channel with ID: $channelId',
+                      );
                       return FilledButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
@@ -100,7 +105,8 @@ GoRouter get testRouter => kDebugMode ? AppRouterConfig.router : _releaseRouter;
         redirect: (context, state) {
           final auth = BlocProvider.of<AuthBloc>(context);
 
-          if (auth.state is! AuthLoginSuccess && state.fullPath != RouteNames.signUp) {
+          if (auth.state is! AuthLoginSuccess &&
+              state.fullPath != RouteNames.signUp) {
             return RouteNames.auth;
           }
 
@@ -123,8 +129,8 @@ GoRouter get testRouter => kDebugMode ? AppRouterConfig.router : _releaseRouter;
             name: RouteNames.signUp,
             path: RouteNames.signUp,
             builder: (context, state) => const AuthSignupForm(),
-          )
-        ]
+          ),
+        ],
       ),
     ],
   );

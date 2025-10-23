@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:konek_frontend/config/sizing_config.dart';
 
 class LabeledTextFormField extends StatelessWidget {
-  const LabeledTextFormField({super.key, required this.label, required this.controller, this.validator, this.hintText});
+  const LabeledTextFormField({
+    super.key,
+    required this.label,
+    required this.controller,
+    this.validator,
+    this.hintText,
+  });
 
   final String label;
   final String? hintText;

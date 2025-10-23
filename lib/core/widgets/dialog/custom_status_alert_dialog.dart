@@ -26,8 +26,12 @@ class CustomStatusAlertDialog extends StatelessWidget {
   }) async {
     return showDialog<T>(
       context: context,
-      builder: (context) =>
-          CustomStatusAlertDialog(type: type, title: title, description: description, showCloseIcon: showCloseIcon),
+      builder: (context) => CustomStatusAlertDialog(
+        type: type,
+        title: title,
+        description: description,
+        showCloseIcon: showCloseIcon,
+      ),
     );
   }
 
@@ -89,14 +93,20 @@ class CustomStatusAlertDialog extends StatelessWidget {
             if (showCloseIcon)
               Align(
                 alignment: Alignment.centerRight,
-                child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close)),
+                child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(Icons.close),
+                ),
               ),
             const SizedBox(height: SizingConfig.spacingSmall),
             Icon(_statusIcon, size: 48, color: _statusColorPrimary),
             const SizedBox(height: SizingConfig.spacingSmall),
             Text(
               title,
-              style: theme.textTheme.titleLarge?.copyWith(color: _statusColorPrimary, fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: _statusColorPrimary,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: SizingConfig.spacingSmall),
             Text(
@@ -106,7 +116,10 @@ class CustomStatusAlertDialog extends StatelessWidget {
             const SizedBox(height: SizingConfig.spacingLarge),
             Align(
               alignment: Alignment.centerRight,
-              child: TextButton(onPressed: () => Navigator.pop(context), child: Text('Close')),
+              child: TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Close'),
+              ),
             ),
           ],
         ),

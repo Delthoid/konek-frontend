@@ -17,7 +17,9 @@ class UserModel extends UserEntity {
       userName: json['userName'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       avatarUrl: json['avatarUrl'] as String?,
-      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt'] as String) : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'] as String)
+          : null,
     );
   }
 

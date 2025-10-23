@@ -26,13 +26,20 @@ Future<void> setupDI() async {
 
   di.registerLazySingleton<LoggingService>(() => LoggingService());
   di.registerLazySingleton<ApiService>(() => ApiService());
-  di.registerLazySingleton<SecureStorageService>(() => SecureStorageService(const FlutterSecureStorage()));
+  di.registerLazySingleton<SecureStorageService>(
+    () => SecureStorageService(const FlutterSecureStorage()),
+  );
 
   // Now register LocalStorageService as regular singleton (not async)
-  di.registerLazySingleton<LocalStorageService>(() => LocalStorageService(prefs));
+  di.registerLazySingleton<LocalStorageService>(
+    () => LocalStorageService(prefs),
+  );
 
   di.registerFactory<AuthRemoteDatasource>(
-    () => AuthRemoteDatasourceImpl(apiService: di<ApiService>(), loggingService: di<LoggingService>()),
+    () => AuthRemoteDatasourceImpl(
+      apiService: di<ApiService>(),
+      loggingService: di<LoggingService>(),
+    ),
   );
 
   di.registerFactory<AuthRepository>(
@@ -42,23 +49,36 @@ Future<void> setupDI() async {
     ),
   );
 
-  di.registerFactory<LoginUsecase>(() => LoginUsecase(authRepository: di<AuthRepository>()));
-  di.registerFactory<GetStoredSessionUsecase>(() => GetStoredSessionUsecase(di<AuthRepository>()));
+  di.registerFactory<LoginUsecase>(
+    () => LoginUsecase(authRepository: di<AuthRepository>()),
+  );
+  di.registerFactory<GetStoredSessionUsecase>(
+    () => GetStoredSessionUsecase(di<AuthRepository>()),
+  );
   di.registerFactory<LogoutUsecase>(() => LogoutUsecase(di<AuthRepository>()));
   di.registerFactory<SignupUsecase>(() => SignupUsecase(di<AuthRepository>()));
 
   // Servers
   di.registerFactory<ServersRemoteDataSource>(
-    () => ServersRemoteDataSourceImpl(apiService: di<ApiService>(), loggingService: di<LoggingService>()),
+    () => ServersRemoteDataSourceImpl(
+      apiService: di<ApiService>(),
+      loggingService: di<LoggingService>(),
+    ),
   );
   di.registerFactory<ServerRepository>(
-    () => ServerRepositoryImpl(
-      remoteDatasource: di<ServersRemoteDataSource>(),
-    )
+    () => ServerRepositoryImpl(remoteDatasource: di<ServersRemoteDataSource>()),
   );
 
-  di.registerFactory<CreateServerUsecase>(() => CreateServerUsecase(di<ServerRepository>()));
-  di.registerFactory<DeleteServerUsecase>(() => DeleteServerUsecase(di<ServerRepository>()));
-  di.registerFactory<UpdateServerUsecase>(() => UpdateServerUsecase(di<ServerRepository>()));
-  di.registerFactory<GetServersUsecase>(() => GetServersUsecase(di<ServerRepository>()));
+  di.registerFactory<CreateServerUsecase>(
+    () => CreateServerUsecase(di<ServerRepository>()),
+  );
+  di.registerFactory<DeleteServerUsecase>(
+    () => DeleteServerUsecase(di<ServerRepository>()),
+  );
+  di.registerFactory<UpdateServerUsecase>(
+    () => UpdateServerUsecase(di<ServerRepository>()),
+  );
+  di.registerFactory<GetServersUsecase>(
+    () => GetServersUsecase(di<ServerRepository>()),
+  );
 }

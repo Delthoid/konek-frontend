@@ -21,7 +21,9 @@ class _ServerSidebarState extends State<ServerSidebar> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return BlocConsumer<ServersBloc, ServersState>(
-      listenWhen: (previous, current) => previous is ServerCreateInProgress || previous is ServerUpdateInProgress,
+      listenWhen: (previous, current) =>
+          previous is ServerCreateInProgress ||
+          previous is ServerUpdateInProgress,
       listener: (context, state) {
         if (state is ServersLoadFailure) {
           CustomStatusAlertDialog.show(
@@ -32,7 +34,7 @@ class _ServerSidebarState extends State<ServerSidebar> {
             showCloseIcon: false,
           );
         }
-        
+
         if (state is ServersLoadSuccess) {
           Navigator.pop(context);
           CustomStatusAlertDialog.show(
@@ -51,7 +53,11 @@ class _ServerSidebarState extends State<ServerSidebar> {
         }
       },
       builder: (context, state) {
-        final serverId = GoRouter.of(context).routerDelegate.state.pathParameters['serverId'] ?? '';
+        final serverId =
+            GoRouter.of(
+              context,
+            ).routerDelegate.state.pathParameters['serverId'] ??
+            '';
 
         return SizedBox(
           width: 65,
@@ -90,7 +96,10 @@ class _ServerSidebarState extends State<ServerSidebar> {
                       server: server,
                       isSelected: server.id == serverId,
                       onTap: () {
-                        context.pushReplacementNamed(RouteNames.server, pathParameters: {'serverId': server.id});
+                        context.pushReplacementNamed(
+                          RouteNames.server,
+                          pathParameters: {'serverId': server.id},
+                        );
                       },
                     );
                   }),

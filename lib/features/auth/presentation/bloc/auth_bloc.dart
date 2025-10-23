@@ -13,16 +13,14 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-
   final LoginUsecase _loginUsecase = GetIt.I<LoginUsecase>();
-  final GetStoredSessionUsecase _getStoredSessionUsecase = GetIt.I<GetStoredSessionUsecase>();
+  final GetStoredSessionUsecase _getStoredSessionUsecase =
+      GetIt.I<GetStoredSessionUsecase>();
   final LogoutUsecase _logoutUsecase = GetIt.I<LogoutUsecase>();
   final SignupUsecase _signupUsecase = GetIt.I<SignupUsecase>();
 
   AuthBloc() : super(AuthInitial()) {
-    on<AuthEvent>((event, emit) {
-
-    });
+    on<AuthEvent>((event, emit) {});
 
     on<AuthStarted>((event, emit) async {
       emit(AuthLoading());
@@ -47,7 +45,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
         emit(AuthLoginSuccess(userSession: userSession));
       } catch (e) {
-
         if (e is ApiException) {
           emit(AuthFailure(errorMessage: e.message));
           return;
@@ -61,8 +58,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
 
       try {
-        final userEntity =  await _signupUsecase.call(
-          email:  event.email,
+        final userEntity = await _signupUsecase.call(
+          email: event.email,
           userName: event.username,
           password: event.password,
           avatarUrl: '',

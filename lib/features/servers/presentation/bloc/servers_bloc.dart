@@ -15,11 +15,13 @@ part 'servers_event.dart';
 part 'servers_state.dart';
 
 class ServersBloc extends Bloc<ServersEvent, ServersState> {
-
-  final CreateServerUsecase _createServerUsecase = GetIt.I<CreateServerUsecase>();
-  final DeleteServerUsecase _deleteServerUsecase = GetIt.I<DeleteServerUsecase>();
+  final CreateServerUsecase _createServerUsecase =
+      GetIt.I<CreateServerUsecase>();
+  final DeleteServerUsecase _deleteServerUsecase =
+      GetIt.I<DeleteServerUsecase>();
   final GetServersUsecase _getServersUsecase = GetIt.I<GetServersUsecase>();
-  final UpdateServerUsecase _updateServerUsecase = GetIt.I<UpdateServerUsecase>();
+  final UpdateServerUsecase _updateServerUsecase =
+      GetIt.I<UpdateServerUsecase>();
 
   ServersBloc() : super(ServersInitial()) {
     on<ServersStarted>((event, emit) async {
@@ -29,11 +31,21 @@ class ServersBloc extends Bloc<ServersEvent, ServersState> {
         emit(ServersLoadSuccess(servers));
       } catch (e) {
         if (e is ApiException) {
-          emit(ServersLoadFailure('There was problem loading servers. ${e.message}', servers: state.serversList));
+          emit(
+            ServersLoadFailure(
+              'There was problem loading servers. ${e.message}',
+              servers: state.serversList,
+            ),
+          );
           return;
         }
 
-        emit(ServersLoadFailure('There was a problem loading servers', servers: state.serversList));
+        emit(
+          ServersLoadFailure(
+            'There was a problem loading servers',
+            servers: state.serversList,
+          ),
+        );
       }
     }, transformer: droppable());
 
@@ -50,7 +62,12 @@ class ServersBloc extends Bloc<ServersEvent, ServersState> {
           return;
         }
 
-        emit(ServersLoadFailure('There was problem on creating server', servers: state.serversList));
+        emit(
+          ServersLoadFailure(
+            'There was problem on creating server',
+            servers: state.serversList,
+          ),
+        );
       }
     }, transformer: droppable());
 
@@ -64,17 +81,27 @@ class ServersBloc extends Bloc<ServersEvent, ServersState> {
               return updatedServer;
             }
             return server;
-          })
+          }),
         ];
 
         emit(ServersLoadSuccess(updatedServers));
       } catch (e) {
         if (e is ApiException) {
-          emit(ServersLoadFailure('There was problem on updating server. ${e.message}', servers: state.serversList));
+          emit(
+            ServersLoadFailure(
+              'There was problem on updating server. ${e.message}',
+              servers: state.serversList,
+            ),
+          );
           return;
         }
 
-        emit(ServersLoadFailure('There was problem on updating server', servers: state.serversList));
+        emit(
+          ServersLoadFailure(
+            'There was problem on updating server',
+            servers: state.serversList,
+          ),
+        );
       }
     }, transformer: droppable());
 
@@ -82,16 +109,28 @@ class ServersBloc extends Bloc<ServersEvent, ServersState> {
       emit(ServerDeleteInProgress(servers: state.serversList));
       try {
         await _deleteServerUsecase.call(event.serverId);
-        final updatedServers = [...state.serversList.where((server) => server.id != event.serverId)];
+        final updatedServers = [
+          ...state.serversList.where((server) => server.id != event.serverId),
+        ];
 
         emit(ServersLoadSuccess(updatedServers));
       } catch (e) {
         if (e is ApiException) {
-          emit(ServersLoadFailure('There was problem on deleting server. ${e.message}', servers: state.serversList));
+          emit(
+            ServersLoadFailure(
+              'There was problem on deleting server. ${e.message}',
+              servers: state.serversList,
+            ),
+          );
           return;
         }
 
-        emit(ServersLoadFailure('There was problem on deleting server', servers: state.serversList));
+        emit(
+          ServersLoadFailure(
+            'There was problem on deleting server',
+            servers: state.serversList,
+          ),
+        );
       }
     }, transformer: droppable());
   }

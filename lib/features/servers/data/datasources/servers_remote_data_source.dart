@@ -13,15 +13,14 @@ abstract class ServersRemoteDataSource {
 }
 
 class ServersRemoteDataSourceImpl implements ServersRemoteDataSource {
-
   final ApiService _apiService;
   final LoggingService _loggingService;
 
   ServersRemoteDataSourceImpl({
     required ApiService apiService,
     required LoggingService loggingService,
-  })  : _apiService = apiService,
-        _loggingService = loggingService;
+  }) : _apiService = apiService,
+       _loggingService = loggingService;
 
   @override
   Future<ServerModel> createServer(ServerCreateRequest request) async {
@@ -34,7 +33,9 @@ class ServersRemoteDataSourceImpl implements ServersRemoteDataSource {
       if (response.statusCode == 201) {
         return ServerModel.fromJson(response.data?.data);
       } else {
-        throw Exception('Failed to create server with status code: ${response.statusCode}');
+        throw Exception(
+          'Failed to create server with status code: ${response.statusCode}',
+        );
       }
     } catch (e) {
       _loggingService.logError('Error creating server: $e');
@@ -50,7 +51,9 @@ class ServersRemoteDataSourceImpl implements ServersRemoteDataSource {
       );
 
       if (response.statusCode != 204) {
-        throw ApiException('Failed to delete server with status code: ${response.statusCode}');
+        throw ApiException(
+          'Failed to delete server with status code: ${response.statusCode}',
+        );
       }
     } catch (e) {
       _loggingService.logError('Error deleting server: $e');
@@ -61,16 +64,16 @@ class ServersRemoteDataSourceImpl implements ServersRemoteDataSource {
   @override
   Future<List<ServerModel>> fetchServers() async {
     try {
-      final response = await _apiService.get(
-        ApiEndpoints.getServers
-      );
+      final response = await _apiService.get(ApiEndpoints.getServers);
 
       if (response.statusCode == 200) {
         return (response.data?.data as List<dynamic>).map((serverJson) {
           return ServerModel.fromJson(serverJson);
         }).toList();
       } else {
-        throw ApiException('There was a problem fetching servers with status code: ${response.statusCode}');
+        throw ApiException(
+          'There was a problem fetching servers with status code: ${response.statusCode}',
+        );
       }
     } catch (e) {
       _loggingService.logError('Error on fetching servers: $e');
@@ -89,12 +92,13 @@ class ServersRemoteDataSourceImpl implements ServersRemoteDataSource {
       if (response.statusCode == 200) {
         return ServerModel.fromJson(response.data?.data);
       } else {
-        throw ApiException('There was a problem udpating server with status code: ${response.statusCode}');
+        throw ApiException(
+          'There was a problem udpating server with status code: ${response.statusCode}',
+        );
       }
     } catch (e) {
       _loggingService.logError('Error on updating server: $e');
       rethrow;
     }
   }
-
 }

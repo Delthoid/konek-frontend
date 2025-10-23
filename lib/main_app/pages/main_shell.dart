@@ -45,7 +45,7 @@ class _MainShellState extends State<MainShell> {
             const SizedBox(width: 8),
             ServerSidebar(),
             const SizedBox(width: 8),
-            Expanded( 
+            Expanded(
               flex: 2,
               child: Container(
                 clipBehavior: Clip.antiAliasWithSaveLayer,

@@ -18,8 +18,10 @@ class ServerModel extends ServerEntity {
       description: json['description'] ?? '',
       ownerId: json['ownerId'],
       iconUrl: json['iconUrl'] ?? '',
-      createdAt: DateTime.parse(json['createdAt'] as String? ?? DateTime.now().toIso8601String()),
+      createdAt: DateTime.parse(
+        json['createdAt'] as String? ?? DateTime.now().toIso8601String(),
+      ),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-     );
+    );
   }
 }

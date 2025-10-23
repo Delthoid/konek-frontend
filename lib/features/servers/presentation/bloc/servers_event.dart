@@ -7,7 +7,7 @@ sealed class ServersEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class ServersStarted extends ServersEvent { }
+final class ServersStarted extends ServersEvent {}
 
 final class ServerCreated extends ServersEvent {
   final ServerCreateRequest request;

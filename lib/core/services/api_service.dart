@@ -9,7 +9,8 @@ class ApiService {
   final Dio _dio;
   final String _baseUrl = ApiConfig.baseUrl;
   final LoggingService _logger = GetIt.I<LoggingService>();
-  final LocalStorageService _localStorageService = GetIt.I<LocalStorageService>();
+  final LocalStorageService _localStorageService =
+      GetIt.I<LocalStorageService>();
 
   ApiService()
     : _dio = Dio(
@@ -17,9 +18,7 @@ class ApiService {
           baseUrl: ApiConfig.baseUrl,
           receiveDataWhenStatusError: true,
           validateStatus: (status) => status! < 500,
-          headers: {
-            'Content-type': 'application/json'
-          }
+          headers: {'Content-type': 'application/json'},
         ),
       );
 
@@ -28,11 +27,15 @@ class ApiService {
   }
 
   Map<String, String> _makeHeaders() {
-    String token = _localStorageService.getKeyValue(LocalStorageService.tokenKey) ?? '';
+    String token =
+        _localStorageService.getKeyValue(LocalStorageService.tokenKey) ?? '';
     return {'Authorization': 'Bearer $token'};
   }
 
-  Future<Response<ApiResponse<T>>> get<T>(String path, {Map<String, dynamic>? queryParameters}) {
+  Future<Response<ApiResponse<T>>> get<T>(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+  }) {
     return _dio
         .get(
           path,
@@ -40,7 +43,9 @@ class ApiService {
           options: Options(headers: _makeHeaders()),
         )
         .then((response) {
-          _logger.logInfo('GET ${makeUri(path)} - Status: ${response.statusCode}');
+          _logger.logInfo(
+            'GET ${makeUri(path)} - Status: ${response.statusCode}',
+          );
 
           return Response<ApiResponse<T>>(
             data: ApiResponse.fromJson(response.data, (json) => json as T),
@@ -63,11 +68,15 @@ class ApiService {
           options: Options(headers: _makeHeaders()),
         )
         .then((response) {
-          _logger.logInfo('POST ${makeUri(path)} - Status: ${response.statusCode}');
+          _logger.logInfo(
+            'POST ${makeUri(path)} - Status: ${response.statusCode}',
+          );
 
           if ((response.statusCode ?? 500) >= 400) {
             final error = response.data['error'] ?? 'Not Found';
-            final errorMessage = response.data['message'] ?? 'The requested resource was not found.';
+            final errorMessage =
+                response.data['message'] ??
+                'The requested resource was not found.';
             throw ApiException('$error: $errorMessage');
           }
 
@@ -92,7 +101,9 @@ class ApiService {
           options: Options(headers: _makeHeaders()),
         )
         .then((response) {
-          _logger.logInfo('PUT ${makeUri(path)} - Status: ${response.statusCode}');
+          _logger.logInfo(
+            'PUT ${makeUri(path)} - Status: ${response.statusCode}',
+          );
 
           return Response<ApiResponse<T>>(
             data: ApiResponse.fromJson(response.data, (json) => json as T),
@@ -115,7 +126,9 @@ class ApiService {
           options: Options(headers: _makeHeaders()),
         )
         .then((response) {
-          _logger.logInfo('DELETE ${makeUri(path)} - Status: ${response.statusCode}');
+          _logger.logInfo(
+            'DELETE ${makeUri(path)} - Status: ${response.statusCode}',
+          );
 
           return Response<ApiResponse<T>>(
             data: ApiResponse.fromJson(response.data, (json) => json as T),

@@ -12,10 +12,15 @@ class UserProfileFooter extends StatefulWidget {
 class _UserProfileFooterState extends State<UserProfileFooter> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-      return FilledButton(onPressed: () {
-        BlocProvider.of<AuthBloc>(context).add(AuthLogoutPressed());
-      }, child: Text('Logout'));
-    });
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        return FilledButton(
+          onPressed: () {
+            BlocProvider.of<AuthBloc>(context).add(AuthLogoutPressed());
+          },
+          child: Text('Logout'),
+        );
+      },
+    );
   }
 }

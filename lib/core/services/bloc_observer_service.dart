@@ -5,7 +5,6 @@ import 'package:konek_frontend/core/services/services.dart';
 import 'services.dart' show LoggingService;
 
 class BlocObserverService extends BlocObserver {
-
   final LoggingService _loggingService = GetIt.I<LoggingService>();
 
   @override

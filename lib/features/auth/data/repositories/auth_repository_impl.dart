@@ -14,14 +14,23 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({
     required AuthRemoteDatasource remoteDatasource,
     required LocalStorageService localStorageService,
-  })  : _remoteDatasource = remoteDatasource,
-        _localStorageService = localStorageService;
+  }) : _remoteDatasource = remoteDatasource,
+       _localStorageService = localStorageService;
 
   @override
-  Future<UserSessionEntity> login({required String userName, required String password}) async {
+  Future<UserSessionEntity> login({
+    required String userName,
+    required String password,
+  }) async {
     try {
-      final userSessionModel = await _remoteDatasource.login(userName: userName, password: password);
-      await _localStorageService.saveKeyValue(LocalStorageService.tokenKey, userSessionModel.token);
+      final userSessionModel = await _remoteDatasource.login(
+        userName: userName,
+        password: password,
+      );
+      await _localStorageService.saveKeyValue(
+        LocalStorageService.tokenKey,
+        userSessionModel.token,
+      );
       await _localStorageService.saveKeyValue(
         LocalStorageService.userKey,
         jsonEncode(
@@ -71,20 +80,20 @@ class AuthRepositoryImpl implements AuthRepository {
       rethrow;
     }
   }
-  
+
   @override
   Future<UserSessionEntity?> getStoredSession() async {
-    final token = _localStorageService.getKeyValue(LocalStorageService.tokenKey);
-    final userJson = _localStorageService.getKeyValue(LocalStorageService.userKey);
+    final token = _localStorageService.getKeyValue(
+      LocalStorageService.tokenKey,
+    );
+    final userJson = _localStorageService.getKeyValue(
+      LocalStorageService.userKey,
+    );
 
     if (token != null && userJson != null) {
       final userMap = jsonDecode(userJson) as Map<String, dynamic>;
       final userModel = UserModel.fromJson(userMap);
-      return UserSessionEntity(
-        token: token,
-        user: userModel,
-        refreshToken: '',
-      );
+      return UserSessionEntity(token: token, user: userModel, refreshToken: '');
     } else {
       return null;
     }
