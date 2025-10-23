@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:konek_frontend/features/servers/domain/entities/server_entity.dart';
 
 class ServerIcon extends StatefulWidget {
-  const ServerIcon({super.key, required this.server, this.icon, this.tooltip, required this.onTap});
+  const ServerIcon({
+    super.key,
+    required this.server,
+    this.icon,
+    this.tooltip,
+    required this.onTap,
+    this.isSelected = false,
+  });
 
+  final bool isSelected;
   final ServerEntity server;
   final Widget? icon;
   final String? tooltip;
@@ -52,8 +60,8 @@ class _ServerIconState extends State<ServerIcon> {
             margin: const EdgeInsets.symmetric(vertical: 4.0),
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(_hovering ? 50.0 : 12.0),
-              border: _hovering ? Border.all(color: theme.colorScheme.primary, width: 2.0) : null,
+              borderRadius: BorderRadius.circular(_hovering || widget.isSelected ? 50.0 : 12.0),
+              border: _hovering || widget.isSelected ? Border.all(color: theme.colorScheme.primary, width: 2.0) : null,
             ),
             child: Center(
               child: widget.icon ?? Text(_buildInitial(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),

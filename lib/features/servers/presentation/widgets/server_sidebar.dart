@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:konek_frontend/config/route_names.dart';
 import 'package:konek_frontend/core/widgets/dialog/custom_alert_dialog.dart';
+import 'package:konek_frontend/core/widgets/dialog/custom_status_alert_dialog.dart';
 import 'package:konek_frontend/features/servers/domain/entities/server_entity.dart';
 import 'package:konek_frontend/features/servers/presentation/bloc/servers_bloc.dart';
 import 'package:konek_frontend/features/servers/presentation/widgets/server_create_form.dart';
@@ -20,15 +21,38 @@ class _ServerSidebarState extends State<ServerSidebar> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return BlocConsumer<ServersBloc, ServersState>(
+      listenWhen: (previous, current) => previous is ServerCreateInProgress || previous is ServerUpdateInProgress,
       listener: (context, state) {
         if (state is ServersLoadFailure) {
-          showDialog(
+          CustomStatusAlertDialog.show(
             context: context,
-            builder: (context) => AlertDialog(title: Text('Error'), content: Text(state.message)),
+            type: AlertDialogStatusType.error,
+            title: 'Failed to create server',
+            description: state.message,
+            showCloseIcon: false,
           );
+        }
+        
+        if (state is ServersLoadSuccess) {
+          Navigator.pop(context);
+          CustomStatusAlertDialog.show(
+            context: context,
+            type: AlertDialogStatusType.success,
+            title: 'Success',
+            description: 'Server created',
+            showCloseIcon: false,
+          ).then((_) {
+            // ignore: use_build_context_synchronously
+            GoRouter.of(context).goNamed(
+              RouteNames.server,
+              pathParameters: {'serverId': state.serversList.first.id},
+            );
+          });
         }
       },
       builder: (context, state) {
+        final serverId = GoRouter.of(context).routerDelegate.state.pathParameters['serverId'] ?? '';
+
         return SizedBox(
           width: 65,
           child: Padding(
@@ -64,6 +88,7 @@ class _ServerSidebarState extends State<ServerSidebar> {
                     final server = state.serversList.elementAt(index);
                     return ServerIcon(
                       server: server,
+                      isSelected: server.id == serverId,
                       onTap: () {
                         context.pushReplacementNamed(RouteNames.server, pathParameters: {'serverId': server.id});
                       },
