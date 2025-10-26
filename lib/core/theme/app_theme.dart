@@ -27,7 +27,6 @@ class AppTheme {
         filled: true,
         isDense: true,
         // fillColor: Colors.grey[100],
-        visualDensity: VisualDensity.compact,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(SizingConfig.borderRadiusMedium),
         ),
